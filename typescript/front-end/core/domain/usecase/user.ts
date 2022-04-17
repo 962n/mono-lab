@@ -7,7 +7,7 @@ export interface UserListUseCase {
 }
 
 
-class UserListUseCaseImpl implements UserListUseCase {
+export class UserListUseCaseImpl implements UserListUseCase {
   private readonly userListRepository: UserListRepository
 
   constructor(userListRepository: UserListRepository) {
