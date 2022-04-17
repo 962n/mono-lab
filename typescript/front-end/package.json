@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@vue/composition-api": "^1.2.4",
+    "@vue/composition-api": "^1.4.9",
     "core-js": "^3.19.3",
     "nuxt": "^2.15.8",
     "nuxt-typed-vuex": "^0.3.0",

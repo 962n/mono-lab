@@ -1,13 +1,14 @@
 <template>
   <div>
-<!--    <Tutorial/>-->
+    <!--    <Tutorial/>-->
     <p>{{ uiModel.fuga }}</p>
     <p>{{ uiModel.hoge }}</p>
     <p>{{ this.$store.state.counter }}</p>
     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="presenter.increment()">
       Button
     </button>
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="presenter.fetchUserList()">
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            @click="presenter.fetchUserList()">
       Button
     </button>
 
@@ -31,18 +32,15 @@ import {NewIndexPresenter} from "~/core/presentation/pages";
 
 export default defineComponent({
   setup(props, context) {
-    console.log("hogehoge")
-    // @ts-ignore
-    const presenter = NewIndexPresenter()
-
+    const presenter = NewIndexPresenter(context.root.$accessor)
     const uiModel = presenter.uiModel()
     presenter.event(() => {
       console.log("event fired!!!")
     })
-    onMounted(()=>{
+    onMounted(() => {
       console.log("onMounted")
     })
-    onUnmounted(()=>{
+    onUnmounted(() => {
       console.log("onUnmounted")
     })
 

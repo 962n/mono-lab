@@ -2,7 +2,7 @@ import {UserListUseCase, UserListUseCaseImpl} from "~/core/domain/usecase/user";
 import {UserListRepositoryImpl} from "~/core/data/repository-impl/user";
 import {ref, Ref, watch} from "@vue/composition-api";
 import {UserListModel} from "~/core/domain/model/user";
-import {Store} from "vuex";
+import {accessorType} from "~/store";
 
 export class IndexUiModel {
   hoge: string
@@ -27,7 +27,7 @@ export interface IndexPresenter {
 }
 
 
-export function NewIndexPresenter(): IndexPresenter {
+export function NewIndexPresenter(store: typeof accessorType): IndexPresenter {
   const userListRepository = new UserListRepositoryImpl()
   const userListUseCase = new UserListUseCaseImpl(userListRepository)
   return new IndexPresenterImpl(userListUseCase)
@@ -72,6 +72,7 @@ class IndexPresenterImpl implements IndexPresenter {
 
   increment(): void {
     this._uiModel.value.fuga++
+
     console.log("hogehoge")
   }
 
