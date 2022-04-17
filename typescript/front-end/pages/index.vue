@@ -8,7 +8,7 @@
       Button
     </button>
     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            @click="presenter.fetchUserList()">
+            @click="hoge">
       Button
     </button>
 
@@ -23,7 +23,7 @@ import {
   onMounted,
   onUnmounted,
 } from '@vue/composition-api'
-import {NewIndexPresenter} from "~/core/presentation/pages";
+import {IndexPresenterFactory} from "~/core/presentation/pages";
 
 
 // export default Vue.extend({
@@ -32,7 +32,7 @@ import {NewIndexPresenter} from "~/core/presentation/pages";
 
 export default defineComponent({
   setup(props, context) {
-    const presenter = NewIndexPresenter(context.root.$accessor)
+    const presenter = new IndexPresenterFactory(context.root.$accessor).create()
     const uiModel = presenter.uiModel()
     presenter.event(() => {
       console.log("event fired!!!")
@@ -48,6 +48,12 @@ export default defineComponent({
       uiModel,
       presenter
     }
+  },
+  methods: {
+    hoge: function () {
+      this.$router.push('/user')
+    }
   }
+
 })
 </script>

@@ -16,6 +16,19 @@ export class IndexUiModel {
   }
 }
 
+export class IndexPresenterFactory {
+  private readonly store: typeof accessorType
+
+  constructor(store: typeof accessorType) {
+    this.store = store;
+  }
+  create(): IndexPresenter {
+    const userListRepository = new UserListRepositoryImpl()
+    const userListUseCase = new UserListUseCaseImpl(userListRepository)
+    return new IndexPresenterImpl(this.store, userListUseCase)
+  }
+}
+
 export interface IndexPresenter {
   uiModel(): Ref<IndexUiModel>
 
@@ -26,19 +39,14 @@ export interface IndexPresenter {
   increment(): void
 }
 
-
-export function NewIndexPresenter(store: typeof accessorType): IndexPresenter {
-  const userListRepository = new UserListRepositoryImpl()
-  const userListUseCase = new UserListUseCaseImpl(userListRepository)
-  return new IndexPresenterImpl(userListUseCase)
-}
-
 class IndexPresenterImpl implements IndexPresenter {
   private readonly userListUseCase: UserListUseCase
   private readonly _uiModel: Ref<IndexUiModel>
   private readonly _event: Ref<number>
+  private readonly store: typeof accessorType
 
-  constructor(userListUseCase: UserListUseCase) {
+  constructor(store: typeof accessorType, userListUseCase: UserListUseCase) {
+    this.store = store
     this.userListUseCase = userListUseCase;
     this._uiModel = ref<IndexUiModel>(new IndexUiModel())
     this._event = ref<number>(1)
@@ -59,11 +67,9 @@ class IndexPresenterImpl implements IndexPresenter {
     this.userListUseCase
       .fetch()
       .then((users) => {
-        console.log("fetchUserList success")
         this._uiModel.value.users = users
       })
       .catch((error) => {
-        console.log("fetchUserList error")
         let value = this._event.value
         value++;
         this._event.value = value
@@ -72,7 +78,7 @@ class IndexPresenterImpl implements IndexPresenter {
 
   increment(): void {
     this._uiModel.value.fuga++
-
+    this.store.increment()
     console.log("hogehoge")
   }
 
