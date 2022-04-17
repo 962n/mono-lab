@@ -2,6 +2,7 @@ import {UserListUseCase, UserListUseCaseImpl} from "~/core/domain/usecase/user";
 import {UserListRepositoryImpl} from "~/core/data/repository-impl/user";
 import {ref, Ref, watch} from "@vue/composition-api";
 import {UserListModel} from "~/core/domain/model/user";
+import {Store} from "vuex";
 
 export class IndexUiModel {
   hoge: string
