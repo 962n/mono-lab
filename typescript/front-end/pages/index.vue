@@ -1,59 +1,29 @@
 <template>
   <div>
-    <!--    <Tutorial/>-->
-    <p>{{ uiModel.fuga }}</p>
-    <p>{{ uiModel.hoge }}</p>
-    <p>{{ this.$store.state.counter }}</p>
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="presenter.increment()">
-      Button
-    </button>
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            @click="hoge">
-      Button
-    </button>
-
+    <Welcome
+      :presenter="welcomePresenter"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
 import {
-  ref,
   defineComponent,
-  onMounted,
-  onUnmounted,
 } from '@vue/composition-api'
-import {IndexPresenterFactory} from "~/core/presentation/pages";
-
-
-// export default Vue.extend({
-//   name: 'IndexPage'
-// })
+import Welcome from "~/components/screen/welcome/Welcome.vue";
+import {
+  WelcomePresenterFactory,
+} from "~/core/presentation/screen/welcome/welcome";
 
 export default defineComponent({
+  components: {
+    Welcome,
+  },
   setup(props, context) {
-    const presenter = new IndexPresenterFactory(context.root.$accessor).create()
-    const uiModel = presenter.uiModel()
-    presenter.event(() => {
-      console.log("event fired!!!")
-    })
-    onMounted(() => {
-      console.log("onMounted")
-    })
-    onUnmounted(() => {
-      console.log("onUnmounted")
-    })
-
+    const welcomePresenter = new WelcomePresenterFactory(context).create()
     return {
-      uiModel,
-      presenter
+      welcomePresenter
     }
   },
-  methods: {
-    hoge: function () {
-      this.$router.push('/user')
-    }
-  }
-
 })
 </script>

@@ -30,6 +30,7 @@ export class IndexPresenterFactory {
 }
 
 export interface IndexPresenter {
+
   uiModel(): Ref<IndexUiModel>
 
   event(callback: () => void): void
