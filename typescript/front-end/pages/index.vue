@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Welcome
+    <WelcomeScreen
       :presenter="welcomePresenter"
     />
   </div>
@@ -10,14 +10,14 @@
 import {
   defineComponent,
 } from '@vue/composition-api'
-import Welcome from "~/components/screen/welcome/Welcome.vue";
+import WelcomeScreen from "~/components/screen/welcome/WelcomeScreen.vue";
 import {
   WelcomePresenterFactory,
 } from "~/core/presentation/screen/welcome/welcome";
 
 export default defineComponent({
   components: {
-    Welcome,
+    WelcomeScreen,
   },
   setup(props, context) {
     const welcomePresenter = new WelcomePresenterFactory(context).create()

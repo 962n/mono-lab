@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import SignUp from "@/components/screen/sign-up/SignUp";
+import SignUp from "@/components/screen/sign-up/SignUpScreen";
 export default {
   name: "index",
   components: {SignUp}
