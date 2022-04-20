@@ -1,17 +1,25 @@
 <template>
-  <div>
-    <p>sign-up</p>
-  </div>
+  <SingInScreen
+    :presenter="singInPresenter"
+  />
 </template>
 
-<script>
-import SignUp from "@/components/screen/sign-up/SignUpScreen";
-export default {
-  name: "index",
-  components: {SignUp}
-}
+<script lang="ts">
+import {
+  defineComponent,
+} from '@vue/composition-api'
+import {SingInPresenterFactory} from "~/core/presentation/screen/sign-in/sign-in";
+import SingInScreen from "~/components/screen/sign-in/SingInScreen.vue";
+
+export default defineComponent({
+  components: {
+    SingInScreen,
+  },
+  setup(props, context) {
+    const singInPresenter = new SingInPresenterFactory(context).create()
+    return {
+      singInPresenter
+    }
+  },
+})
 </script>
-
-<style scoped>
-
-</style>

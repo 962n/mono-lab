@@ -1,5 +1,7 @@
 <template>
-
+  <div>
+    <p>UserDetailScreen</p>
+  </div>
 </template>
 
 <script>

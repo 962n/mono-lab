@@ -1,5 +1,7 @@
 <template>
-
+  <div>
+    <p>WordDetailScreen</p>
+  </div>
 </template>
 
 <script>

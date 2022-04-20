@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>WordListScreen</p>
+    <p>WordAddScreen</p>
   </div>
 </template>
 
@@ -8,11 +8,11 @@
 import {
   defineComponent,
 } from '@vue/composition-api'
-import {WordListPresenter} from "~/core/presentation/screen/word-list/word-list";
+import {WordAddPresenter} from "~/core/presentation/screen/word-add/word-add";
 
 export default defineComponent({
   props: {
-    presenter: Object as () => WordListPresenter,
+    presenter: Object as () => WordAddPresenter,
   },
   setup(props, context) {
     const p = props.presenter

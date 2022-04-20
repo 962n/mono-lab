@@ -1,5 +1,7 @@
 <template>
-
+  <div>
+    <p>UserListScreen</p>
+  </div>
 </template>
 
 <script>
