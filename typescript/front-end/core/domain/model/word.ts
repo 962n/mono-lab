@@ -1,3 +1,5 @@
+import {PageModel} from "~/core/domain/model/paging";
+
 export class WordModelW {
   readonly folderId: string | null
   readonly title: string
