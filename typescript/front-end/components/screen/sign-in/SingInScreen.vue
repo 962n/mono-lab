@@ -1,9 +1,9 @@
 <template>
   <div>
     <p>SignInScreen</p>
-    <t-button>
-      hogehoge
-    </t-button>
+    <t-button text="hogehoge"/>
+    <t-button text="fugafuga"/>
+
     <t-input value="Hello world" name="input" />
 
   </div>

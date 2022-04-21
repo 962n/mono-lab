@@ -1,16 +1,21 @@
 <template>
-  <div>
-    <h1 class="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            @click="p.toSingIn()">
-      SingIn
-    </button>
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            @click="p.toSingUp()">
-      SignUp
-    </button>
+  <div class="align-middle max-w-lg flex flex-col space-y-4 justify-center">
+    <h1 class="text-center text-5xl font-bold space-y-10">Ankiiiiiiii</h1>
+    <p class="text-center space-y-10">
+      This service helps you memorize words, phrases in languages <br>
+      that you want to learn by using swipe cards. <br>
+      So register your account and enjoy improving your vocab!!!
+    </p>
+    <t-button
+      class="max-w-xs max-w-xs font-bold"
+      text="Sign up"
+      @click="p.toSingUp()"
+    />
+    <t-button
+      class="max-w-xs font-bold"
+      text="Sign in"
+      @click="p.toSingIn()"
+    />
   </div>
 </template>
 
