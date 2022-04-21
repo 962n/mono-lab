@@ -18,11 +18,13 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '@/assets/css/tailwind.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '@/plugins/composition-api'
+    '@/plugins/composition-api',
+    '@/plugins/vue-tailwind',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -36,6 +38,8 @@ export default {
     '@nuxtjs/tailwindcss',
     // https://typed-vuex.roe.dev/
     'nuxt-typed-vuex',
+    // https://tailwindcss.com/docs/guides/nuxtjs
+    '@nuxt/postcss8',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -44,5 +48,11 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    postcss: {
+      plugins: {
+        tailwindcss: {},
+        autoprefixer: {},
+      },
+    },
   }
 }

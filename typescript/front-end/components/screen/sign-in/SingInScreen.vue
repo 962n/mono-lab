@@ -1,7 +1,10 @@
 <template>
   <div>
     <p>SignInScreen</p>
-    <t-input value="Hello world" name="my-input" />
+    <t-button>
+      hogehoge
+    </t-button>
+    <t-input value="Hello world" name="input" />
 
   </div>
 </template>
