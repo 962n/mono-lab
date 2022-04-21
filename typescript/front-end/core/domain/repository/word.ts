@@ -20,7 +20,7 @@ export interface WordRepository {
 
   create(param: WordModelW): Promise<WordModel>
 
-  update(param: WordModelW): Promise<WordModel>
+  update(param: { id: string, model: WordModelW }): Promise<WordModel>
 
   delete(param: { ids: string[] }): Promise<string[]>
 

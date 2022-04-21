@@ -1,6 +1,8 @@
 <template>
   <div>
     <p>SignInScreen</p>
+    <t-input value="Hello world" name="my-input" />
+
   </div>
 </template>
 

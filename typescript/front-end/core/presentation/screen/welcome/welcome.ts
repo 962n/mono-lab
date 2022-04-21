@@ -44,11 +44,11 @@ class WelcomePresenterImpl implements WelcomePresenter {
   }
 
   toSingIn() {
-    this.router.push("/anki-swipe")
+    this.router.push("/sign-in")
   }
 
   toSingUp() {
-    this.router.push("/anki-swipe")
+    this.router.push("/sign-up")
   }
 
   uiModel(): WelcomeUiModel {

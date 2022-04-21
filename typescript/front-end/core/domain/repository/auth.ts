@@ -1,3 +1,5 @@
+import {AuthModel} from "~/core/domain/model/auth";
+
 export interface AuthRepository {
   singUp(
     params: {
