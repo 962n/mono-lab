@@ -4,6 +4,7 @@ import {GetWordsUseCase, GetWordsUseCaseImpl} from "~/core/domain/usecase/word/g
 import {WordsRepositoryImpl} from "~/core/data/repository-impl/words";
 import {PageModel} from "~/core/domain/model/paging";
 import {WordModel} from "~/core/domain/model/word";
+import {StateChanger} from "vue-infinite-loading";
 
 
 export interface WordListPresenter {
@@ -11,13 +12,14 @@ export interface WordListPresenter {
 
   refresh(): void
 
-  loadMore(): void
+  fetch(state:StateChanger): void
 
   toDetail(item: WordListItem): void
 }
 
 export type WordListUiModel = {
-  items: Ref<WordListItem[]>
+  items: WordListItem[]
+  infiniteId: number
 }
 
 export type WordListItem = {
@@ -40,44 +42,42 @@ export class WordListPresenterFactory implements PresenterFactory<WordListPresen
 
 
 class WordListPresenterImpl implements WordListPresenter {
-  private readonly _uiModel: WordListUiModel
-  private readonly getWordsUseCase: GetWordsUseCase
-  private lastPage: PageModel | null
+  readonly _uiModel: WordListUiModel
+  readonly getWordsUseCase: GetWordsUseCase
+  lastPage: PageModel | null
 
   constructor(getWordsUseCase: GetWordsUseCase) {
     this.getWordsUseCase = getWordsUseCase
     this._uiModel = {
-      items: ref([])
+      items: [],
+      infiniteId: 0
     }
+    this.lastPage = null
   }
 
   refresh(): void {
-    this.getWordsUseCase.exec({
-      folderId: "",
-      first: 10,
-      after: null
-    }).then((value => {
-      this._uiModel.items.value = []
-      this.handleWords(value.words)
-      this.lastPage = value.page
-    })).catch((error) => {
-
-    })
+    console.log("refresh")
+    this._uiModel.items = []
+    this._uiModel.infiniteId = this._uiModel.infiniteId + 100
   }
 
-  loadMore(): void {
-    const lastPage = this.lastPage
-    if (!lastPage || !lastPage.hasNextPage) {
-      return
-    }
+  fetch(state:StateChanger): void {
+    const after = this.lastPage?.endCursor ?? null
     this.getWordsUseCase.exec({
       folderId: "",
       first: 10,
-      after: lastPage.endCursor
+      after: after
     }).then((value => {
+      console.log(value)
       this.handleWords(value.words)
       this.lastPage = value.page
+      if (value.page.hasNextPage) {
+        state.loaded()
+      } else {
+        state.complete()
+      }
     })).catch((error) => {
+      state.error()
     })
   }
 
@@ -91,11 +91,13 @@ class WordListPresenterImpl implements WordListPresenter {
 
   handleWords(models: WordModel[]) {
     const items = models.map((m) => {
-      return {
+      const item: WordListItem = {
         title: m.title
       }
+      return item
     })
-    this._uiModel.items.value.push(items)
+    this._uiModel.items.push(...items)
+    console.log(this._uiModel.items)
   }
 
 }
