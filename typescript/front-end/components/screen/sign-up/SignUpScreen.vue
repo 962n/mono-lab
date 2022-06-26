@@ -4,7 +4,7 @@
 
       <loading :active.sync="um.isLoading" :can-cancel="false" :is-full-page="true"/>
 
-      <p>Welcome to Anki!!!!! <br/>Let’s get started.</p>
+      <p>Welcome to Ankiiiii.<br/>Let’s get started.</p>
 
       <t-input-group label="Enter your email" :variant="um.emailVariant" :feedback="um.emailFeedback">
         <t-input type="email" v-model="um.email" :variant="um.emailVariant" @change="p.validateEmail()"/>
