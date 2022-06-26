@@ -1,10 +1,10 @@
 <template>
   <div class="h-screen flex flex-col justify-between">
     <div class="flex flex-col my-auto">
-      <h1 class="text-center text-9xl my-2">Ankiiiiiiii</h1>
-      <p class="mx-auto max-w-lg text-lg my-2">
-        This service helps you memorize words, phrases in languages that you want to learn by using swipe cards. <br/>
-        So register your account and enjoy improving your vocab!!!
+      <h1 class="text-center text-9xl my-2 font-mono">Ankiiiii</h1>
+      <p class="mx-auto max-w-xl text-lg my-2">
+        This service helps you memorize words and phrases in languages that you want to learn by using swipe cards. <br/>
+        So register your account and enjoy increasing your vocab!!!
       </p>
       <t-button
         class="mx-auto font-bold w-64 my-2"

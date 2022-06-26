@@ -1,25 +1,52 @@
 <template>
-  <div>
-    <p>SignUpScreen</p>
+  <div class="h-screen">
+    <div>
+      <p>
+        Welcome to Anki!!!!! <br/>Let’s get started.
+      </p>
+      <t-input-group :variant="uiModel.emailVariant" label="Enter your email" :feedback="uiModel.emailFeedback">
+        <t-input type="email" v-model="uiModel.email" :variant="uiModel.emailVariant"
+                 @change="p.validateEmail()"/>
+      </t-input-group>
+      <t-input-group label="Enter your password" :feedback="uiModel.passwordFeedback">
+        <t-input :variant="uiModel.passwordVariant" type="password" @change="p.validatePassword()"/>
+      </t-input-group>
+      <t-button
+        @click="p.authenticate()"
+        :disabled="!uiModel.buttonEnabled"
+        text="Sign up"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-} from '@vue/composition-api'
-import {SingUpPresenter} from "~/core/presentation/screen/sign-up/sign-up";
+import {defineComponent, reactive,} from '@vue/composition-api'
+import {SignUpEvent, SignUpEventType, SingUpPresenter} from "~/core/presentation/screen/sign-up/sign-up";
 
 export default defineComponent({
+  components: {},
   props: {
     presenter: Object as () => SingUpPresenter,
   },
   setup(props, context) {
-    const p = props.presenter
+    const p = props.presenter!
+
+    p.event((event: SignUpEvent) => {
+      switch (event.type) {
+        case SignUpEventType.AuthComplete:
+          p.toNextPage()
+          break
+        default:
+          break
+      }
+    })
+
+    const uiModel = reactive(p.uiModel())
     return {
-      p
+      p,
+      uiModel
     }
   },
-  methods: {}
 })
 </script>
