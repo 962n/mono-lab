@@ -1,6 +1,8 @@
 import {SetupContext} from "@vue/composition-api";
 import {PresenterFactory} from "~/core/presentation/screen/factory";
 import VueRouter from "vue-router";
+import EmailValidator from 'email-validator';
+import PasswordValidator from 'password-validator'
 
 export class SingUpPresenterFactory implements PresenterFactory<SingUpPresenter> {
 
@@ -79,13 +81,23 @@ class SingUpPresenterImpl implements SingUpPresenter {
   }
 
   validateEmail(): void {
-    this._uiModel.emailVariant = "danger"
+    const isValid = EmailValidator.validate(this._uiModel.email)
+    this._uiModel.emailVariant = isValid ? "success" : "danger"
+    this._uiModel.emailFeedback = isValid ? "" : "it's not email format"
     this.updateButtonDisabled()
   }
 
   validatePassword(): void {
-    this._uiModel.passwordVariant = "success"
-    this._uiModel.emailVariant = "success"
+    const isValid = new PasswordValidator().is().min(8)
+      .is().max(100)
+      .has().uppercase()
+      .has().lowercase()
+      .has().digits(1)
+      .has().not().spaces()
+      .validate(this._uiModel.password, {list: false, details: false})
+
+    this._uiModel.passwordVariant = isValid ? "success" : "danger"
+    this._uiModel.passwordFeedback = isValid ? "" : "Password must contains upper , lower , digit and not space "
     this.updateButtonDisabled()
   }
 
