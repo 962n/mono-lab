@@ -1,6 +1,7 @@
 <template>
   <div class="h-screen">
     <div>
+      <loading :active.sync="uiModel.isLoading" :can-cancel="false" :is-full-page="true"/>
       <p>
         Welcome to Anki!!!!! <br/>Let’s get started.
       </p>
@@ -23,11 +24,16 @@
 <script lang="ts">
 import {defineComponent, reactive,} from '@vue/composition-api'
 import {SignUpEvent, SignUpEventType, SingUpPresenter} from "~/core/presentation/screen/sign-up/sign-up";
+import Loading from 'vue-loading-overlay';
+import "vue-loading-overlay/dist/vue-loading.css";
+
 
 export default defineComponent({
-  components: {},
   props: {
     presenter: Object as () => SingUpPresenter,
+  },
+  components: {
+    Loading,
   },
   setup(props, context) {
     const p = props.presenter!

@@ -23,6 +23,7 @@ export type SignUpUiModel = {
   passwordVariant: string
   passwordFeedback: string
   buttonEnabled: boolean
+  isLoading: boolean
 }
 
 export type SignUpEvent = {
@@ -63,7 +64,8 @@ class SingUpPresenterImpl implements SingUpPresenter {
       password: "",
       passwordVariant: "",
       passwordFeedback: "",
-      buttonEnabled: false
+      buttonEnabled: false,
+      isLoading: false
     }
   }
 
@@ -88,10 +90,17 @@ class SingUpPresenterImpl implements SingUpPresenter {
   }
 
   authenticate(): void {
-    this.handleEvent({
-      type: SignUpEventType.AuthComplete,
-      message: "success sign up"
+
+    this._uiModel.isLoading = true
+    timeout(3000).finally(() => {
+      this._uiModel.isLoading = false
+      console.log("authenticate")
+      this.handleEvent({
+        type: SignUpEventType.AuthFailed,
+        message: "success sign up"
+      })
     })
+
   }
 
   toNextPage(): void {
@@ -113,4 +122,8 @@ class SingUpPresenterImpl implements SingUpPresenter {
   }
 
 
+}
+
+function timeout(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
