@@ -1,20 +1,23 @@
 import {SetupContext} from "@vue/composition-api";
 import {PresenterFactory} from "~/core/presentation/screen/factory";
 import VueRouter from "vue-router";
-import EmailValidator from 'email-validator';
-import PasswordValidator from 'password-validator'
+import {AuthRepositoryImpl} from "~/core/data/repository-impl/auth";
+import {SignUpUseCase, SignUpUseCaseImpl} from "~/core/domain/usecase/auth/sign-up";
+import {validateEmail, validatePassword} from "~/core/domain/util/validater";
 
-export class SingUpPresenterFactory implements PresenterFactory<SingUpPresenter> {
 
-  private context: SetupContext
+export interface SingUpPresenter {
+  event(callback: (event: SignUpEvent) => void): void
 
-  constructor(context: SetupContext) {
-    this.context = context;
-  }
+  uiModel(): SignUpUiModel
 
-  create(): SingUpPresenter {
-    return new SingUpPresenterImpl(this.context.root.$router);
-  }
+  validateEmail(): void
+
+  validatePassword(): void
+
+  authenticate(): void
+
+  toNextPage(): void
 }
 
 export type SignUpUiModel = {
@@ -38,27 +41,30 @@ export enum SignUpEventType {
   AuthFailed = "AuthFailed",
 }
 
-export interface SingUpPresenter {
-  event(callback: (event: SignUpEvent) => void): void
+export class SingUpPresenterFactory implements PresenterFactory<SingUpPresenter> {
 
-  uiModel(): SignUpUiModel
+  private context: SetupContext
 
-  validateEmail(): void
+  constructor(context: SetupContext) {
+    this.context = context;
+  }
 
-  validatePassword(): void
-
-  authenticate(): void
-
-  toNextPage(): void
+  create(): SingUpPresenter {
+    const authRepo = new AuthRepositoryImpl()
+    const signUpUseCase = new SignUpUseCaseImpl(authRepo)
+    return new SingUpPresenterImpl(this.context.root.$router, signUpUseCase);
+  }
 }
 
 class SingUpPresenterImpl implements SingUpPresenter {
   private readonly router: VueRouter
   readonly _uiModel: SignUpUiModel
   private _callback?: (event: SignUpEvent) => void
+  readonly signUpUseCase: SignUpUseCase
 
-  constructor(router: VueRouter) {
+  constructor(router: VueRouter, signUpUseCase: SignUpUseCase) {
     this.router = router
+    this.signUpUseCase = signUpUseCase
     this._uiModel = {
       email: "",
       emailVariant: "",
@@ -81,21 +87,14 @@ class SingUpPresenterImpl implements SingUpPresenter {
   }
 
   validateEmail(): void {
-    const isValid = EmailValidator.validate(this._uiModel.email)
+    const isValid = validateEmail(this._uiModel.email)
     this._uiModel.emailVariant = isValid ? "success" : "danger"
     this._uiModel.emailFeedback = isValid ? "" : "it's not email format"
     this.updateButtonDisabled()
   }
 
   validatePassword(): void {
-    const isValid = new PasswordValidator().is().min(8)
-      .is().max(100)
-      .has().uppercase()
-      .has().lowercase()
-      .has().digits(1)
-      .has().not().spaces()
-      .validate(this._uiModel.password, {list: false, details: false})
-
+    const isValid = validatePassword(this._uiModel.password)
     this._uiModel.passwordVariant = isValid ? "success" : "danger"
     this._uiModel.passwordFeedback = isValid ? "" : "Password must contains upper , lower , digit and not space "
     this.updateButtonDisabled()
@@ -104,13 +103,19 @@ class SingUpPresenterImpl implements SingUpPresenter {
   authenticate(): void {
 
     this._uiModel.isLoading = true
-    timeout(3000).finally(() => {
-      this._uiModel.isLoading = false
-      console.log("authenticate")
+    this.signUpUseCase.exec({
+        email: this._uiModel.email,
+        password: this._uiModel.password,
+      }
+    ).then(() => {
       this.handleEvent({
-        type: SignUpEventType.AuthFailed,
+        type: SignUpEventType.AuthComplete,
         message: "success sign up"
       })
+    }).catch(() => {
+
+    }).finally(() => {
+      this._uiModel.isLoading = false
     })
 
   }
@@ -119,23 +124,17 @@ class SingUpPresenterImpl implements SingUpPresenter {
     this.router.push("/words").then()
   }
 
-  updateButtonDisabled(): void {
+  private updateButtonDisabled(): void {
     const success = "success"
     this._uiModel.buttonEnabled =
       this._uiModel.emailVariant == success &&
       this._uiModel.passwordVariant == success
   }
 
-  handleEvent(event: SignUpEvent): void {
+  private handleEvent(event: SignUpEvent): void {
     const callback = this._callback
     if (callback) {
-      callback(event);
+      callback(event)
     }
   }
-
-
-}
-
-function timeout(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
 }

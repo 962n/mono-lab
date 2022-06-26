@@ -4,7 +4,7 @@ export interface SignUpUseCase {
   exec(param: { email: string, password: string }): Promise<void>
 }
 
-class SignUpUseCaseImpl implements SignUpUseCase {
+export class SignUpUseCaseImpl implements SignUpUseCase {
   private readonly authRepo: AuthRepository
 
   constructor(authRepo: AuthRepository) {
