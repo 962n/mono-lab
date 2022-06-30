@@ -125,7 +125,7 @@ class SingUpPresenterImpl implements AuthPresenter {
   }
 
   toNextPageAfterAuth(): void {
-    this.router.push("/words").then()
+    this.router.replace("/words").then()
   }
 
   private updateButtonDisabled(): void {
@@ -224,7 +224,7 @@ class SingInPresenterImpl implements AuthPresenter {
   }
 
   toNextPageAfterAuth(): void {
-    this.router.push("/words").then()
+    this.router.replace("/words").then()
   }
 
   private updateButtonDisabled(): void {
