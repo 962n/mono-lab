@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen flex flex-col justify-between">
+  <div class="h-full flex flex-col justify-between">
     <div class="flex flex-col my-auto">
       <h1 class="text-center text-9xl my-2 font-mono">Ankiiiii</h1>
       <p class="mx-auto max-w-xl text-lg my-2">

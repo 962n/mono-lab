@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+  <div class="bg-white shadow-md rounded-2xl px-8 pt-6 pb-8 mb-4">
     <loading :active.sync="um.isLoading" :can-cancel="false" :is-full-page="true"/>
 
     <p class="my-6 text-3xl font-mono">Welcome to Ankiiiii.<br/>Please sign up.</p>

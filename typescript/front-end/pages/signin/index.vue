@@ -15,6 +15,9 @@ export default defineComponent({
   components: {
     SingInScreen,
   },
+  layout() {
+    return "public-default"
+  },
   setup(props, context) {
     const singInPresenter = new SingInPresenterFactory(context).create()
     return {

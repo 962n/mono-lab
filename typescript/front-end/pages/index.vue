@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-5/6">
     <WelcomeScreen
       :presenter="welcomePresenter"
     />
@@ -18,6 +18,9 @@ import {
 export default defineComponent({
   components: {
     WelcomeScreen,
+  },
+  layout() {
+    return "public-default"
   },
   setup(props, context) {
     const welcomePresenter = new WelcomePresenterFactory(context).create()

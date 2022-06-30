@@ -8,9 +8,14 @@
     />
 
     <div>
-      <ul id="example-1">
-        <li v-for="(item, index) in uiModel.items" :key="index">
+      <ul class="p-4">
+        <li
+          v-for="(item, index) in uiModel.items" :key="index"
+          class="rounded-xl group-hover:border-black border"
+        >
           <p>{{ item.title }}</p>
+          <p>翻訳</p>
+          <p>説明</p>
         </li>
       </ul>
     </div>
@@ -38,10 +43,10 @@ export default defineComponent({
     InfiniteLoading
   },
   setup(props, context) {
-    const p : WordListPresenter = props.presenter!
+    const p: WordListPresenter = props.presenter!
     const uiModel = reactive(p.uiModel())
     const methods = {
-      infiniteHandler(state:StateChanger) {
+      infiniteHandler(state: StateChanger) {
         p.fetch(state)
       }
     }

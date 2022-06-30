@@ -13,6 +13,9 @@ import NotFoundScreen from "~/components/screen/not-found/NotFoundScreen.vue";
 
 export default defineComponent({
   components: {NotFoundScreen},
+  layout() {
+    return "public-default"
+  },
   setup(props, context) {
     return {}
   },
