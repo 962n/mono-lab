@@ -1,7 +1,6 @@
 <template>
   <div class="h-screen">
     <div>
-
       <loading :active.sync="um.isLoading" :can-cancel="false" :is-full-page="true"/>
 
       <p>Welcome to Ankiiiii.<br/>Let’s get started.</p>

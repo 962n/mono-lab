@@ -96,28 +96,25 @@ class SingUpPresenterImpl implements SingUpPresenter {
   validatePassword(): void {
     const isValid = validatePassword(this._uiModel.password)
     this._uiModel.passwordVariant = isValid ? "success" : "danger"
-    this._uiModel.passwordFeedback = isValid ? "" : "Password must contains upper , lower , digit and not space "
+    this._uiModel.passwordFeedback = isValid ? "" : "Password must contains upper, lower and digit."
     this.updateButtonDisabled()
   }
 
   authenticate(): void {
-
+    const params = {
+      email: this._uiModel.email,
+      password: this._uiModel.password,
+    }
     this._uiModel.isLoading = true
-    this.signUpUseCase.exec({
-        email: this._uiModel.email,
-        password: this._uiModel.password,
-      }
-    ).then(() => {
-      this.handleEvent({
-        type: SignUpEventType.AuthComplete,
-        message: "success sign up"
-      })
+    this.signUpUseCase.exec(params).then(() => {
+      const successEvent = {type: SignUpEventType.AuthComplete, message: "sign up success"}
+      this.handleEvent(successEvent)
     }).catch(() => {
-
+      const failureEvent = {type: SignUpEventType.AuthFailed, message: "sign up failed"}
+      this.handleEvent(failureEvent)
     }).finally(() => {
       this._uiModel.isLoading = false
     })
-
   }
 
   toNextPage(): void {
@@ -126,9 +123,9 @@ class SingUpPresenterImpl implements SingUpPresenter {
 
   private updateButtonDisabled(): void {
     const success = "success"
-    this._uiModel.buttonEnabled =
-      this._uiModel.emailVariant == success &&
-      this._uiModel.passwordVariant == success
+    const isValidEmail = this._uiModel.emailVariant == success
+    const isValidPassword = this._uiModel.passwordVariant == success
+    this._uiModel.buttonEnabled = isValidEmail && isValidPassword
   }
 
   private handleEvent(event: SignUpEvent): void {

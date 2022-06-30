@@ -11,10 +11,12 @@ export class SignUpUseCaseImpl implements SignUpUseCase {
     this.authRepo = authRepo;
   }
 
-  exec(param: { email: string; password: string }): Promise<void> {
-    return this.authRepo.singUp(param)
-      .then((authModel) => {
-        return this.authRepo.configureToken({token: authModel.token})
-      })
+  async exec(param: { email: string; password: string }): Promise<void> {
+    try {
+      const auth = await this.authRepo.singUp(param)
+      await this.authRepo.configureToken(auth)
+    } catch (e) {
+      throw e
+    }
   }
 }

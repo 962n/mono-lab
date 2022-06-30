@@ -16,6 +16,6 @@ export interface AuthRepository {
   ): Promise<AuthModel>
 
   configureToken(
-    params: { token: string }
+    params: AuthModel
   ): Promise<void>
 }

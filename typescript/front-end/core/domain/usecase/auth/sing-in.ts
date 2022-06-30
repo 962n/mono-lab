@@ -1,22 +1,24 @@
 import {AuthRepository} from "~/core/domain/repository/auth";
 
 export interface SignInUseCase {
-  exec(param: {email:string , password: string}) : Promise<void>
+  exec(param: { email: string, password: string }): Promise<void>
 }
 
 class SignInUseCaseImpl implements SignInUseCase {
 
-  private readonly authRepo : AuthRepository
+  private readonly authRepo: AuthRepository
 
   constructor(authRepo: AuthRepository) {
     this.authRepo = authRepo;
   }
 
-  exec(param: { email: string; password: string }): Promise<void> {
-    return this.authRepo.singUp(param)
-      .then((authModel) => {
-        return this.authRepo.configureToken({token:authModel.token})
-      })
+  async exec(param: { email: string; password: string }): Promise<void> {
+    try {
+      const auth = await this.authRepo.singUp(param)
+      await this.authRepo.configureToken(auth)
+    } catch (e) {
+      throw e
+    }
   }
 
 }

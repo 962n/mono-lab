@@ -3,7 +3,7 @@ import {AuthModel} from "~/core/domain/model/auth";
 
 export class AuthRepositoryImpl implements AuthRepository {
 
-  configureToken(params: { token: string }): Promise<void> {
+  configureToken(model: AuthModel): Promise<void> {
     return Promise.resolve();
   }
 
@@ -13,11 +13,10 @@ export class AuthRepositoryImpl implements AuthRepository {
 
   singUp(params: { email: string; password: string }): Promise<AuthModel> {
     return timeout(3000).then(() => this.dummyAuthModel())
-//    return Promise.resolve(this.dummyAuthModel());
   }
 
   private dummyAuthModel(): AuthModel {
-    return new AuthModel("dummy_token", "dummy_refresh_token")
+    return new AuthModel("dummy_token", "dummy_refresh_token", new Date())
   }
 
 }
