@@ -1,7 +1,7 @@
 <template>
   <div class="h-screen bg-blue-50">
     <div class="h-5/6 flex flex-col justify-center justify-items-center">
-      <SignUpScreen
+      <AuthScreen
         class="w-6/12 mx-auto"
         :presenter="singUpPresenter"
       />
@@ -13,12 +13,12 @@
 import {
   defineComponent,
 } from '@vue/composition-api'
-import {SingUpPresenterFactory} from "~/core/presentation/screen/sign-up/sign-up";
-import SignUpScreen from "~/components/screen/sign-up/SignUpScreen.vue";
+import {SingUpPresenterFactory} from "~/core/presentation/screen/auth/auth";
+import AuthScreen from "~/components/screen/auth/AuthScreen.vue";
 
 export default defineComponent({
   components: {
-    SignUpScreen
+    AuthScreen,
   },
   layout() {
     return "public-default"

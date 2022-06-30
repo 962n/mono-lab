@@ -17,7 +17,6 @@
                 <button
                   id="user-menu"
                   class="p-0 flex items-center text-sm text-gray-700 transition duration-150 ease-in-out bg-gray-300 border-2 border-gray-200 rounded-full focus:outline-none focus:shadow-solid"
-                  :class="{ 'border-gray-300 bg-gray-500 text-white ': isShown }"
                   aria-label="User menu"
                   aria-haspopup="true"
                   @mousedown="mousedownHandler"

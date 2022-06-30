@@ -1,19 +1,25 @@
 <template>
-  <SingInScreen
-    :presenter="singInPresenter"
-  />
+  <div class="h-screen bg-blue-50">
+    <div class="h-5/6 flex flex-col justify-center justify-items-center">
+      <AuthScreen
+        class="w-6/12 mx-auto"
+        :presenter="singInPresenter"
+      />
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import {
   defineComponent,
 } from '@vue/composition-api'
-import {SingInPresenterFactory} from "~/core/presentation/screen/sign-in/sign-in";
+import {SingInPresenterFactory} from "~/core/presentation/screen/auth/auth";
 import SingInScreen from "~/components/screen/sign-in/SingInScreen.vue";
+import AuthScreen from "~/components/screen/auth/AuthScreen.vue";
 
 export default defineComponent({
   components: {
-    SingInScreen,
+    AuthScreen,
   },
   layout() {
     return "public-default"
