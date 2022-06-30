@@ -2,7 +2,7 @@
   <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
     <loading :active.sync="um.isLoading" :can-cancel="false" :is-full-page="true"/>
 
-    <p class="my-6 text-3xl font-mono">Welcome to Ankiiiii.<br/>Please sing up.</p>
+    <p class="my-6 text-3xl font-mono">Welcome to Ankiiiii.<br/>Please sign up.</p>
 
     <t-input-group class="my-4" label="Enter your email" :variant="um.emailVariant" :feedback="um.emailFeedback">
       <t-input type="email" v-model="um.email" :variant="um.emailVariant" @change="p.validateEmail()"/>
