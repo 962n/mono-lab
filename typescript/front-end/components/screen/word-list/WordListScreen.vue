@@ -1,11 +1,9 @@
 <template>
   <div>
     <p>WordListScreen</p>
-    <t-button
-      class="max-w-xs font-bold"
-      text="refresh"
-      @click="p.refresh()"
-    />
+    <button @click="p.refresh()">
+      <RefreshSVG/>
+    </button>
 
     <div>
       <ul class="px-4">
@@ -41,6 +39,7 @@ import {
 import {WordListPresenter} from "~/core/presentation/screen/word-list/word-list";
 import InfiniteLoading, {StateChanger} from 'vue-infinite-loading';
 import DeleteSVG from '~/assets/svg/delete_24.svg';
+import RefreshSVG from '~/assets/svg/refresh_24.svg';
 
 export default defineComponent({
   props: {
@@ -48,7 +47,8 @@ export default defineComponent({
   },
   components: {
     InfiniteLoading,
-    DeleteSVG
+    DeleteSVG,
+    RefreshSVG
   },
   setup(props, context) {
     const p: WordListPresenter = props.presenter!
