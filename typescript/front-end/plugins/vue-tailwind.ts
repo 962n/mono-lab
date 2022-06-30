@@ -95,7 +95,7 @@ const settings = {
     props: {
       fixedClasses: {
         wrapper: '',
-        label: 'block',
+        label: 'block uppercase tracking-wide text-xs font-bold mb-2',
         body: '',
         feedback: ' text-sm text-sm',
         description: 'text-gray-400 text-sm'

@@ -1,20 +1,19 @@
 <template>
-  <div class="h-screen">
-    <div>
-      <loading :active.sync="um.isLoading" :can-cancel="false" :is-full-page="true"/>
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <loading :active.sync="um.isLoading" :can-cancel="false" :is-full-page="true"/>
 
-      <p>Welcome to Ankiiiii.<br/>Let’s get started.</p>
+    <p class="my-6 text-3xl font-mono">Welcome to Ankiiiii.<br/>Please sing up.</p>
 
-      <t-input-group label="Enter your email" :variant="um.emailVariant" :feedback="um.emailFeedback">
-        <t-input type="email" v-model="um.email" :variant="um.emailVariant" @change="p.validateEmail()"/>
-      </t-input-group>
+    <t-input-group class="my-4" label="Enter your email" :variant="um.emailVariant" :feedback="um.emailFeedback">
+      <t-input type="email" v-model="um.email" :variant="um.emailVariant" @change="p.validateEmail()"/>
+    </t-input-group>
 
-      <t-input-group label="Enter your password" :variant="um.passwordVariant" :feedback="um.passwordFeedback">
-        <t-input type="password" v-model="um.password" :variant="um.passwordVariant" @change="p.validatePassword()"/>
-      </t-input-group>
+    <t-input-group class="my-4" label="Enter your password" :variant="um.passwordVariant"
+                   :feedback="um.passwordFeedback">
+      <t-input type="password" v-model="um.password" :variant="um.passwordVariant" @change="p.validatePassword()"/>
+    </t-input-group>
 
-      <t-button text="Sign up" @click="p.authenticate()" :disabled="!um.buttonEnabled"/>
-    </div>
+    <t-button class="mt-4 ml-auto" text="Sign up" @click="p.authenticate()" :disabled="!um.buttonEnabled"/>
   </div>
 </template>
 

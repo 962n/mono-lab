@@ -1,7 +1,10 @@
 <template>
-  <SignUpScreen
-    :presenter="singUpPresenter"
-  />
+  <div class="h-screen bg-blue-50 flex flex-col justify-center justify-items-center">
+    <SignUpScreen
+      class="w-6/12 mx-auto"
+      :presenter="singUpPresenter"
+    />
+  </div>
 </template>
 
 <script lang="ts">
