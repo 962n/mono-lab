@@ -43,7 +43,10 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: [
+    // https://www.npmjs.com/package/nuxt-svg-loader
+    'nuxt-svg-loader',
+  ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
@@ -57,7 +60,7 @@ export default {
   router: {
     extendRoutes(routes, resolve) {
       routes.push({
-        name: 'custom',
+        name: 'notFound',
         path: '*',
         component: resolve(__dirname, 'pages/404.vue')
       })

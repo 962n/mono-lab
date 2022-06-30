@@ -1,7 +1,7 @@
 <template>
   <div class="h-screen">
     <header class="flex flex-row justify-between items-center p-4 shadow-md relative">
-      <h1 class="text-2xl font-mono">Ankiiiii</h1>
+      <h1 class="text-2xl font-mono font-bold">Ankiiiii</h1>
       <nav>
         <ul class="flex flex-row items-center">
           <li class="mx-5 font-bold"><a href="./news.html">Swipe</a></li>

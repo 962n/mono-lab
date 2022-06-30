@@ -8,22 +8,28 @@
     />
 
     <div>
-      <ul class="p-4">
+      <ul class="px-4">
         <li
           v-for="(item, index) in uiModel.items" :key="index"
-          class="rounded-xl group-hover:border-black border"
+          class="rounded-xl group-hover:border-black border my-4 p-4 flex flex-row justify-items-end justify-between"
         >
-          <p>{{ item.title }}</p>
-          <p>翻訳</p>
-          <p>説明</p>
+          <div>
+            <p class="text-lg font-bold">{{ item.title }}</p>
+            <p class="text-sm text-gray-400">description</p>
+          </div>
+          <button class="">
+            <DeleteSVG/>
+          </button>
         </li>
       </ul>
     </div>
-
-    <infinite-loading
-      :identifier="uiModel.infiniteId"
-      @infinite="infiniteHandler">
-    </infinite-loading>
+    <!-- https://crieit.net/posts/Nuxt-document-is-not-defined -->
+    <no-ssr>
+      <infinite-loading
+        :identifier="uiModel.infiniteId"
+        @infinite="infiniteHandler">
+      </infinite-loading>
+    </no-ssr>
   </div>
 </template>
 
@@ -34,13 +40,15 @@ import {
 } from '@vue/composition-api'
 import {WordListPresenter} from "~/core/presentation/screen/word-list/word-list";
 import InfiniteLoading, {StateChanger} from 'vue-infinite-loading';
+import DeleteSVG from '~/assets/svg/delete_24.svg';
 
 export default defineComponent({
   props: {
     presenter: Object as () => WordListPresenter,
   },
   components: {
-    InfiniteLoading
+    InfiniteLoading,
+    DeleteSVG
   },
   setup(props, context) {
     const p: WordListPresenter = props.presenter!

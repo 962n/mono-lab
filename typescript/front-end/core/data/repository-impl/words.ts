@@ -17,7 +17,7 @@ export class WordsRepositoryImpl implements WordsRepository {
   }): Promise<WordsWithPage> {
     this.counter++
     const items = ["1", "2", "3", "4", "5"].map((value) => {
-      return new WordModel(value, value, value, null, null, null)
+      return new WordModel(value, value, "value", null, null, null)
     })
     if (this.counter % 3 === 0) {
       const page = new PageModel(15, null, null, false)
