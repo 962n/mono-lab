@@ -8,9 +8,9 @@ import {SignInUseCase} from "~/core/domain/usecase/auth/sing-in";
 
 
 export interface AuthPresenter {
-  event(callback: (event: SignUpEvent) => void): void
+  event(callback: (event: AuthEvent) => void): void
 
-  uiModel(): SignUpUiModel
+  uiModel(): AuthUiModel
 
   validateEmail(): void
 
@@ -53,7 +53,7 @@ export class SingUpPresenterFactory implements PresenterFactory<AuthPresenter> {
     this.context = context;
   }
 
-  create(): SingUpPresenter {
+  create(): AuthPresenter {
     const authRepo = new AuthRepositoryImpl()
     const signUpUseCase = new SignUpUseCaseImpl(authRepo)
     return new SingUpPresenterImpl(this.context.root.$router, signUpUseCase);
@@ -84,12 +84,12 @@ class SingUpPresenterImpl implements AuthPresenter {
     }
   }
 
-  event(callback: (event: SignUpEvent) => void): void {
+  event(callback: (event: AuthEvent) => void): void {
     this._callback = callback
   }
 
 
-  uiModel(): SignUpUiModel {
+  uiModel(): AuthUiModel {
     return this._uiModel
   }
 
@@ -135,7 +135,7 @@ class SingUpPresenterImpl implements AuthPresenter {
     this._uiModel.buttonEnabled = isValidEmail && isValidPassword
   }
 
-  private handleEvent(event: SignUpEvent): void {
+  private handleEvent(event: AuthEvent): void {
     const callback = this._callback
     if (callback) {
       callback(event)
@@ -183,12 +183,12 @@ class SingInPresenterImpl implements AuthPresenter {
     }
   }
 
-  event(callback: (event: SignUpEvent) => void): void {
+  event(callback: (event: AuthEvent) => void): void {
     this._callback = callback
   }
 
 
-  uiModel(): SignUpUiModel {
+  uiModel(): AuthUiModel {
     return this._uiModel
   }
 

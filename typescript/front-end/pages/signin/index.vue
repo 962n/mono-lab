@@ -14,7 +14,6 @@ import {
   defineComponent,
 } from '@vue/composition-api'
 import {SingInPresenterFactory} from "~/core/presentation/screen/auth/auth";
-import SingInScreen from "~/components/screen/sign-in/SingInScreen.vue";
 import AuthScreen from "~/components/screen/auth/AuthScreen.vue";
 
 export default defineComponent({
