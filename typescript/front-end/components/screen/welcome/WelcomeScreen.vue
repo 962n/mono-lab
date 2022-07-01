@@ -3,7 +3,8 @@
     <div class="flex flex-col my-auto">
       <h1 class="text-center text-9xl my-2 font-mono">Ankiiiii</h1>
       <p class="mx-auto max-w-xl text-lg my-2">
-        This service helps you memorize words and phrases in languages that you want to learn by using swipe cards. <br/>
+        This service helps you memorize words and phrases in languages that you want to learn by using swipe cards.
+        <br/>
         So register your account and enjoy increasing your vocab!!!
       </p>
       <t-button
@@ -41,7 +42,7 @@ export default defineComponent({
       console.log("onUnmounted")
     })
     return {
-      p
+      p,
     }
   },
   methods: {}

@@ -3,6 +3,7 @@ import {AuthModel} from "~/core/domain/model/auth";
 
 export class AuthRepositoryImpl implements AuthRepository {
 
+
   configureToken(model: AuthModel): Promise<void> {
     return Promise.resolve();
   }

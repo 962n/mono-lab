@@ -1,20 +1,13 @@
-import {
-  getAccessorType,
-  mutationTree,
-} from 'typed-vuex'
+import {Store} from 'vuex'
+import DomainAuthModule from '~/store/domain/auth'
+import {getModule} from 'vuex-module-decorators'
 
-export const state = () => ({
-  counter: 0 as number
-})
+let domainAuthStore: DomainAuthModule
 
-export const mutations = mutationTree(state, {
-  increment(state) {
-    state.counter++
-  }
-})
+function initialiseStores(store: Store<any>): void {
+  domainAuthStore = getModule(DomainAuthModule, store)
+}
 
-export const accessorType = getAccessorType({
-  state,
-  mutations,
-  modules: {},
-})
+const initializer = (store: Store<any>) => initialiseStores(store)
+export const plugins = [initializer]
+export {domainAuthStore,}
