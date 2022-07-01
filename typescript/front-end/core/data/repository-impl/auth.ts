@@ -1,10 +1,16 @@
 import {AuthRepository} from "~/core/domain/repository/auth";
 import {AuthModel} from "~/core/domain/model/auth";
+import DomainAuthStore from '~/store/domain/auth'
 
 export class AuthRepositoryImpl implements AuthRepository {
+  readonly authStore: DomainAuthStore
 
+  constructor(authStore: DomainAuthStore) {
+    this.authStore = authStore
+  }
 
   configureToken(model: AuthModel): Promise<void> {
+    this.authStore.configureAuthModel(model)
     return Promise.resolve();
   }
 

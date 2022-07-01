@@ -22,12 +22,12 @@
       </ul>
     </div>
     <!-- https://crieit.net/posts/Nuxt-document-is-not-defined -->
-    <no-ssr>
+    <client-only>
       <infinite-loading
         :identifier="uiModel.infiniteId"
         @infinite="infiniteHandler">
       </infinite-loading>
-    </no-ssr>
+    </client-only>
   </div>
 </template>
 
@@ -57,8 +57,8 @@ export default defineComponent({
       infiniteHandler(state: StateChanger) {
         p.fetch(state)
       },
-      hoge(hoge:WordListItem,index: number) {
-
+      hoge(hoge: WordListItem, index: number) {
+        console.log(hoge)
       }
     }
     return {

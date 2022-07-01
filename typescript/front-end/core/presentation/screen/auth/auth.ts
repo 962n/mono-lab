@@ -5,6 +5,7 @@ import {AuthRepositoryImpl} from "~/core/data/repository-impl/auth";
 import {SignUpUseCase, SignUpUseCaseImpl} from "~/core/domain/usecase/auth/sign-up";
 import {validateEmail, validatePassword} from "~/core/domain/util/validater";
 import {SignInUseCase} from "~/core/domain/usecase/auth/sing-in";
+import {domainAuthStore} from "~/store"
 
 
 export interface AuthPresenter {
@@ -54,7 +55,7 @@ export class SingUpPresenterFactory implements PresenterFactory<AuthPresenter> {
   }
 
   create(): AuthPresenter {
-    const authRepo = new AuthRepositoryImpl()
+    const authRepo = new AuthRepositoryImpl(domainAuthStore)
     const signUpUseCase = new SignUpUseCaseImpl(authRepo)
     return new SingUpPresenterImpl(this.context.root.$router, signUpUseCase);
   }
@@ -116,7 +117,8 @@ class SingUpPresenterImpl implements AuthPresenter {
     this.signUpUseCase.exec(params).then(() => {
       const successEvent = {type: AuthEventType.AuthComplete, message: "sign up success"}
       this.handleEvent(successEvent)
-    }).catch(() => {
+    }).catch((e) => {
+      console.log(e)
       const failureEvent = {type: AuthEventType.AuthFailed, message: "sign up failed"}
       this.handleEvent(failureEvent)
     }).finally(() => {
@@ -153,7 +155,7 @@ export class SingInPresenterFactory implements PresenterFactory<AuthPresenter> {
   }
 
   create(): AuthPresenter {
-    const authRepo = new AuthRepositoryImpl()
+    const authRepo = new AuthRepositoryImpl(domainAuthStore)
     const signUpUseCase = new SignUpUseCaseImpl(authRepo)
     return new SingInPresenterImpl(this.context.root.$router, signUpUseCase);
   }
