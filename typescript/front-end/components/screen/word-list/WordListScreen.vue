@@ -15,7 +15,7 @@
             <p class="text-lg font-bold">{{ item.title }}</p>
             <p class="text-sm text-gray-400">description</p>
           </div>
-          <button class="">
+          <button @click="hoge(item,index)" class="">
             <DeleteSVG/>
           </button>
         </li>
@@ -36,7 +36,7 @@ import {
   reactive,
   defineComponent,
 } from '@vue/composition-api'
-import {WordListPresenter} from "~/core/presentation/screen/word-list/word-list";
+import {WordListItem, WordListPresenter} from "~/core/presentation/screen/word-list/word-list";
 import InfiniteLoading, {StateChanger} from 'vue-infinite-loading';
 import DeleteSVG from '~/assets/svg/delete_24.svg';
 import RefreshSVG from '~/assets/svg/refresh_24.svg';
@@ -56,6 +56,9 @@ export default defineComponent({
     const methods = {
       infiniteHandler(state: StateChanger) {
         p.fetch(state)
+      },
+      hoge(hoge:WordListItem,index: number) {
+
       }
     }
     return {
