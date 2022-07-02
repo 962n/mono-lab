@@ -1,4 +1,4 @@
-import {ref, Ref, SetupContext} from "@vue/composition-api";
+import {SetupContext} from "@vue/composition-api";
 import {PresenterFactory} from "~/core/presentation/screen/factory";
 import {GetWordsUseCase, GetWordsUseCaseImpl} from "~/core/domain/usecase/word/get-words";
 import {WordsRepositoryImpl} from "~/core/data/repository-impl/words";
@@ -12,14 +12,18 @@ export interface WordListPresenter {
 
   refresh(): void
 
-  fetch(state:StateChanger): void
+  fetch(state: StateChanger): void
 
   toDetail(item: WordListItem): void
+
+  onClickDelete(item: WordListItem): void
 }
 
 export type WordListUiModel = {
+  testTitle:string
   items: WordListItem[]
   infiniteId: number
+  showAddWordModal: boolean
 }
 
 export type WordListItem = {
@@ -49,8 +53,10 @@ class WordListPresenterImpl implements WordListPresenter {
   constructor(getWordsUseCase: GetWordsUseCase) {
     this.getWordsUseCase = getWordsUseCase
     this._uiModel = {
+      testTitle:"",
       items: [],
-      infiniteId: 0
+      infiniteId: 0,
+      showAddWordModal: false
     }
     this.lastPage = null
   }
@@ -61,7 +67,7 @@ class WordListPresenterImpl implements WordListPresenter {
     this._uiModel.infiniteId = this._uiModel.infiniteId + 100
   }
 
-  fetch(state:StateChanger): void {
+  fetch(state: StateChanger): void {
     const after = this.lastPage?.endCursor ?? null
     this.getWordsUseCase.exec({
       folderId: "",
@@ -85,8 +91,14 @@ class WordListPresenterImpl implements WordListPresenter {
   toDetail(item: WordListItem): void {
   }
 
+  onClickDelete(item: WordListItem): void {
+    this._uiModel.testTitle += "a"
+    this._uiModel.showAddWordModal = true
+  }
+
+
   uiModel(): WordListUiModel {
-    return this._uiModel;
+    return this._uiModel
   }
 
   handleWords(models: WordModel[]) {
@@ -97,7 +109,6 @@ class WordListPresenterImpl implements WordListPresenter {
       return item
     })
     this._uiModel.items.push(...items)
-    console.log(this._uiModel.items)
   }
 
 }

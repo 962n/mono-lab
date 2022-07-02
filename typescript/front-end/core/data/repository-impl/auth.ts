@@ -29,9 +29,11 @@ export class AuthRepositoryImpl implements AuthRepository {
   }
 
   signOut(): Promise<void> {
-    return this.cookieStore.deleteAuth().then(() => {
-      this.authStore.disposeAuthModel()
-    })
+    return timeout(2000)
+      .then(() => this.cookieStore.deleteAuth())
+      .then(() => {
+        this.authStore.disposeAuthModel()
+      })
   }
 
   private dummyAuthModel(): AuthModel {

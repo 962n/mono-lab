@@ -10,6 +10,8 @@ import {domainAuthStore} from "~/utils/store-accessor";
 export interface HeaderPresenter {
   event(callback: (event: HeaderEvent) => void): void
 
+  uiModel(): HeaderUiModel
+
   toWords(): void
 
   toSwipe(): void
@@ -18,6 +20,10 @@ export interface HeaderPresenter {
 
   logout(): void
 
+}
+
+export type HeaderUiModel = {
+  isLoading: boolean
 }
 
 export type HeaderEvent = {
@@ -49,17 +55,26 @@ export class HeaderPresenterFactory implements PresenterFactory<HeaderPresenter>
 export class HeaderPresenterImpl implements HeaderPresenter {
 
   readonly router: VueRouter
+  private _uiModel: HeaderUiModel
   readonly signOutUseCase: SignOutUseCase
   private _callback?: (event: HeaderEvent) => void
 
   constructor(router: VueRouter, signOutUseCase: SignOutUseCase) {
     this.router = router
     this.signOutUseCase = signOutUseCase
+    this._uiModel = {
+      isLoading: false,
+    }
   }
 
   event(callback: (event: HeaderEvent) => void): void {
     this._callback = callback
   }
+
+  uiModel(): HeaderUiModel {
+    return this._uiModel
+  }
+
 
   toSwipe(): void {
     this.router.push("/ankiswipe")
@@ -75,13 +90,13 @@ export class HeaderPresenterImpl implements HeaderPresenter {
 
 
   logout(): void {
+    this._uiModel.isLoading = true
     this.signOutUseCase.exec().then(() => {
-      console.log("SignOutComplete")
       this.handleEvent({type: HeaderEventType.SignOutComplete, message: ""})
     }).catch((e: Error) => {
-      console.log("SignOutFailed")
-      console.log(e)
       this.handleEvent({type: HeaderEventType.SignOutFailed, message: e.message})
+    }).finally(() => {
+      this._uiModel.isLoading = false
     })
   }
 

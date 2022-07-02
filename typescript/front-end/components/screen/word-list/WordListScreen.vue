@@ -1,6 +1,7 @@
 <template>
   <div>
     <p>WordListScreen</p>
+    <p>{{ um.testTitle }}</p>
     <button @click="p.refresh()">
       <RefreshSVG/>
     </button>
@@ -8,15 +9,17 @@
     <div>
       <ul class="px-4">
         <li
-          v-for="(item, index) in uiModel.items" :key="index"
-          class="rounded-xl group-hover:border-black border my-4 p-4 flex flex-row justify-items-end justify-between"
+          v-for="(item, index) in um.items" :key="index"
+          class="rounded-xl group-hover:border-black border my-4"
         >
-          <div>
-            <p class="text-lg font-bold">{{ item.title }}</p>
-            <p class="text-sm text-gray-400">description</p>
-          </div>
-          <button @click="hoge(item,index)" class="">
-            <DeleteSVG/>
+          <button class="w-full flex flex-row items-center justify-between p-4">
+            <div>
+              <p class="text-lg font-bold text-left">{{ item.title }}</p>
+              <p class="text-sm text-gray-400 text-left">description</p>
+            </div>
+            <button @click="hoge(index,item)" class="">
+              <DeleteSVG/>
+            </button>
           </button>
         </li>
       </ul>
@@ -24,10 +27,13 @@
     <!-- https://crieit.net/posts/Nuxt-document-is-not-defined -->
     <client-only>
       <infinite-loading
-        :identifier="uiModel.infiniteId"
+        :identifier="um.infiniteId"
         @infinite="infiniteHandler">
       </infinite-loading>
     </client-only>
+    <div>
+      <t-modal v-model="um.showAddWordModal">hello world</t-modal>
+    </div>
   </div>
 </template>
 
@@ -55,19 +61,19 @@ export default defineComponent({
   },
   setup(props, context) {
     const p: WordListPresenter = props.presenter
-    const uiModel = reactive(p.uiModel())
+    const um = reactive(p.uiModel())
     const methods = {
       infiniteHandler(state: StateChanger) {
         p.fetch(state)
       },
-      hoge(hoge: WordListItem, index: number) {
-        console.log(hoge)
+      hoge(index: number,hoge: WordListItem) {
+        p.onClickDelete(hoge)
       }
     }
     return {
       p,
-      uiModel,
-      ...methods
+      um,
+      ...methods,
     }
   },
   methods: {}

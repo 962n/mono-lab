@@ -19,8 +19,8 @@
 
 <script lang="ts">
 import {defineComponent, reactive,} from '@vue/composition-api'
-import Loading from 'vue-loading-overlay';
-import "vue-loading-overlay/dist/vue-loading.css";
+import Loading from 'vue-loading-overlay'
+import "vue-loading-overlay/dist/vue-loading.css"
 import {AuthEvent, AuthEventType, AuthPresenter} from "~/core/presentation/screen/auth/auth";
 
 
