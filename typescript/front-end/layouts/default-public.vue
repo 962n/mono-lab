@@ -1,19 +1,26 @@
 <template>
   <div class="h-screen">
-    <HeaderPublicScreen/>
+    <HeaderPublicScreen :presenter="headerPublicPresenter"/>
     <nuxt/>
   </div>
 </template>
 
-<script>
-import HeaderPublicScreen from "@/components/screen/header-public/HeaderPublicScreen";
 
-export default {
-  name: "default",
-  components: {HeaderPublicScreen}
-}
+<script lang="ts">
+import {
+  defineComponent
+} from '@vue/composition-api'
+import HeaderPublicScreen from "~/components/screen/header-public/HeaderPublicScreen.vue";
+import {HeaderPublicPresenterFactory} from "~/core/presentation/screen/header-public/header-public";
+
+export default defineComponent({
+  props: {},
+  components: {HeaderPublicScreen},
+  setup(props, context) {
+    const headerPublicPresenter = new HeaderPublicPresenterFactory(context).create()
+    return {
+      headerPublicPresenter,
+    }
+  },
+})
 </script>
-
-<style scoped>
-
-</style>
