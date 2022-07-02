@@ -1,20 +1,12 @@
 import {Store} from 'vuex'
-import DomainAuthModule from '~/store/domain/auth'
-import {getModule} from 'vuex-module-decorators'
 import {Context} from '@nuxt/types'
 import {AppCookieDataStoreImpl, CookieDataStore} from "~/core/data/datastore/cookie";
 import UniversalCookie from "universal-cookie";
+import {initializeStores, domainAuthStore} from '~/utils/store-accessor'
 
-let domainAuthStore: DomainAuthModule
-
-function initialiseStores(store: Store<any>): void {
-  console.log("initialiseStores")
-  domainAuthStore = getModule(DomainAuthModule, store)
-}
-
-const initializer = (store: Store<any>) => initialiseStores(store)
+const initializer = (store: Store<any>) => initializeStores(store)
 export const plugins = [initializer]
-export {domainAuthStore,}
+export * from '~/utils/store-accessor'
 
 export const actions = {
   async nuxtServerInit(_: any, context: Context): Promise<void> {
