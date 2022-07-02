@@ -21,7 +21,7 @@ export default defineComponent({
     AuthScreen,
   },
   layout() {
-    return "public-default"
+    return "default-public"
   },
   setup(props, context) {
     const singUpPresenter = new SingUpPresenterFactory(context).create()

@@ -20,7 +20,7 @@ export default defineComponent({
     WelcomeScreen,
   },
   layout() {
-    return "public-default"
+    return "default-public"
   },
   setup(props, context) {
     const welcomePresenter = new WelcomePresenterFactory(context).create()
