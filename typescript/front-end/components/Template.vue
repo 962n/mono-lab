@@ -5,8 +5,10 @@
 import {
   defineComponent, onMounted, onBeforeMount
 } from '@vue/composition-api'
+import {AuthPresenter} from "~/core/presentation/screen/auth/auth";
 
 export default defineComponent({
+  props: {},
   components: {},
   created() {
   },

@@ -18,10 +18,12 @@ export class CookieDataStore {
   }
 
   deleteAll(): Promise<void> {
+    // TODO do not working
     const cookies = this.cookie.getAll<Map<string, any>>()
-    cookies.forEach((_, key) => {
+    console.log(cookies)
+    for (const [key, value] of cookies) {
       this.cookie.remove(key)
-    })
+    }
     return Promise.resolve();
   }
 

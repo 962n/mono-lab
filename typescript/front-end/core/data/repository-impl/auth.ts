@@ -29,7 +29,9 @@ export class AuthRepositoryImpl implements AuthRepository {
   }
 
   signOut(): Promise<void> {
-    return this.cookieStore.deleteAll()
+    return this.cookieStore.deleteAuth().then(() => {
+      this.authStore.disposeAuthModel()
+    })
   }
 
   private dummyAuthModel(): AuthModel {

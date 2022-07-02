@@ -3,9 +3,15 @@
     <h1 class="text-2xl font-mono font-bold">Ankiiiii</h1>
     <nav>
       <ul class="flex flex-row items-center">
-        <li class="mx-5 font-bold"><a href="./news.html">Swipe</a></li>
-        <li class="mx-5 font-bold"><a href="./menu.html">Words</a></li>
-        <li class="mx-5 font-bold"><a href="./contact.html">Export</a></li>
+        <li class="mx-5">
+          <button class="font-bold" @click="p.toSwipe()">Swipe</button>
+        </li>
+        <li class="mx-5">
+          <button class="font-bold" @click="p.toWords()">Words</button>
+        </li>
+        <li class="mx-5">
+          <button class="font-bold" @click="p.logout()">SignOut</button>
+        </li>
         <li>
           <!-- https://www.vue-tailwind.com/docs/dropdown -->
           <t-dropdown class="justify-items-end">
@@ -61,12 +67,36 @@
   </header>
 </template>
 
-<script>
-export default {
-  name: "HeaderScreen"
-}
+<script lang="ts">
+import {defineComponent, onBeforeMount, onMounted} from '@vue/composition-api'
+import {HeaderEvent, HeaderEventType, HeaderPresenter} from "~/core/presentation/screen/header/header";
+
+export default defineComponent({
+  props: {
+    presenter: {
+      type: Object as () => HeaderPresenter,
+      required: true
+    }
+  },
+  components: {},
+  created() {
+  },
+  setup(props, context) {
+    const p = props.presenter
+    p.event((event: HeaderEvent) => {
+      switch (event.type) {
+        case HeaderEventType.SignOutComplete:
+          p.toTop()
+          break
+      }
+    })
+    onMounted(() => {
+    })
+    onBeforeMount(() => {
+    })
+    return {
+      p
+    }
+  },
+})
 </script>
-
-<style scoped>
-
-</style>

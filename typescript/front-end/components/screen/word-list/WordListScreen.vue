@@ -43,7 +43,10 @@ import RefreshSVG from '~/assets/svg/refresh_24.svg';
 
 export default defineComponent({
   props: {
-    presenter: Object as () => WordListPresenter,
+    presenter: {
+      type: Object as () => WordListPresenter,
+      required: true
+    },
   },
   components: {
     InfiniteLoading,
@@ -51,7 +54,7 @@ export default defineComponent({
     RefreshSVG
   },
   setup(props, context) {
-    const p: WordListPresenter = props.presenter!
+    const p: WordListPresenter = props.presenter
     const uiModel = reactive(p.uiModel())
     const methods = {
       infiniteHandler(state: StateChanger) {
