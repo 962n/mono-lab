@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>AnkiSwipeScreen</p>
+    <p>Sorry... This screen is under construction.</p>
   </div>
 </template>
 
