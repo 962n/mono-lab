@@ -1,11 +1,11 @@
 <template>
   <div>
     <WordListScreen
-      v-if="isSignedIn"
+      v-if="notfound"
       :presenter="wordListPresenter"
     />
     <NotFoundScreen
-      v-if="!isSignedIn"
+      v-if="!notfound"
     />
   </div>
 </template>
@@ -13,6 +13,8 @@
 <script lang="ts">
 import {
   defineComponent,
+  ref,
+  onMounted,
 } from '@vue/composition-api'
 import WordListScreen from "~/components/screen/word-list/WordListScreen.vue";
 import {WordListPresenterFactory} from "~/core/presentation/screen/word-list/word-list";
@@ -24,12 +26,21 @@ export default defineComponent({
     NotFoundScreen,
     WordListScreen,
   },
+  created() {
+    console.log("created")
+  },
   setup(props, context) {
-    const isSignedIn = domainAuthStore.isSignedIn
+    console.log("setup")
+    const notfound = ref(false)
+    onMounted(() => {
+      console.log("onMounted")
+      console.log(domainAuthStore)
+      notfound.value = domainAuthStore.isSignedIn
+    })
     const wordListPresenter = new WordListPresenterFactory(context).create()
     return {
       wordListPresenter,
-      isSignedIn
+      notfound
     }
   },
 })

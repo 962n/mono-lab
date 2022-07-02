@@ -1,25 +1,35 @@
 import {AuthRepository} from "~/core/domain/repository/auth";
 import {AuthModel} from "~/core/domain/model/auth";
 import DomainAuthStore from '~/store/domain/auth'
+import {AppCookieDataStore} from "~/core/data/datastore/cookie";
 
 export class AuthRepositoryImpl implements AuthRepository {
   readonly authStore: DomainAuthStore
+  readonly cookieStore: AppCookieDataStore
 
-  constructor(authStore: DomainAuthStore) {
+  constructor(
+    authStore: DomainAuthStore,
+    cookieStore: AppCookieDataStore,
+  ) {
     this.authStore = authStore
+    this.cookieStore = cookieStore
   }
 
-  configureToken(model: AuthModel): Promise<void> {
+  async configureToken(model: AuthModel): Promise<void> {
+    await this.cookieStore.putAuth(model)
     this.authStore.configureAuthModel(model)
-    return Promise.resolve();
   }
 
   signIn(params: { email: string; password: string }): Promise<AuthModel> {
-    return Promise.resolve(this.dummyAuthModel());
+    return timeout(2000).then(() => this.dummyAuthModel())
   }
 
   singUp(params: { email: string; password: string }): Promise<AuthModel> {
-    return timeout(3000).then(() => this.dummyAuthModel())
+    return timeout(2000).then(() => this.dummyAuthModel())
+  }
+
+  signOut(): Promise<void> {
+    return this.cookieStore.deleteAll()
   }
 
   private dummyAuthModel(): AuthModel {

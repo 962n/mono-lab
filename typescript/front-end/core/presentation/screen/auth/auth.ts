@@ -6,6 +6,8 @@ import {SignUpUseCase, SignUpUseCaseImpl} from "~/core/domain/usecase/auth/sign-
 import {validateEmail, validatePassword} from "~/core/domain/util/validater";
 import {SignInUseCase} from "~/core/domain/usecase/auth/sing-in";
 import {domainAuthStore} from "~/store"
+import {AppCookieDataStoreImpl, CookieDataStore} from "~/core/data/datastore/cookie";
+import UniversalCookie from "universal-cookie";
 
 
 export interface AuthPresenter {
@@ -55,7 +57,8 @@ export class SingUpPresenterFactory implements PresenterFactory<AuthPresenter> {
   }
 
   create(): AuthPresenter {
-    const authRepo = new AuthRepositoryImpl(domainAuthStore)
+    const cookieStore = new AppCookieDataStoreImpl(new CookieDataStore(new UniversalCookie()))
+    const authRepo = new AuthRepositoryImpl(domainAuthStore, cookieStore)
     const signUpUseCase = new SignUpUseCaseImpl(authRepo)
     return new SingUpPresenterImpl(this.context.root.$router, signUpUseCase);
   }
@@ -73,14 +76,14 @@ class SingUpPresenterImpl implements AuthPresenter {
     this._uiModel = {
       title1: "Welcome to Ankiiiii.",
       title2: "Please sign up.",
-      email: "",
-      emailVariant: "",
+      email: "test@email.email",
+      emailVariant: "success",
       emailFeedback: "",
-      password: "",
-      passwordVariant: "",
+      password: "Password1234",
+      passwordVariant: "success",
       passwordFeedback: "",
-      buttonEnabled: false,
-      buttonTitle:"Sign up",
+      buttonEnabled: true,
+      buttonTitle: "Sign up",
       isLoading: false
     }
   }
@@ -127,7 +130,8 @@ class SingUpPresenterImpl implements AuthPresenter {
   }
 
   toNextPageAfterAuth(): void {
-    this.router.replace("/words").then()
+    this.router.replace("/words").finally(() => {
+    })
   }
 
   private updateButtonDisabled(): void {
@@ -155,7 +159,8 @@ export class SingInPresenterFactory implements PresenterFactory<AuthPresenter> {
   }
 
   create(): AuthPresenter {
-    const authRepo = new AuthRepositoryImpl(domainAuthStore)
+    const cookieStore = new AppCookieDataStoreImpl(new CookieDataStore(new UniversalCookie()))
+    const authRepo = new AuthRepositoryImpl(domainAuthStore, cookieStore)
     const signUpUseCase = new SignUpUseCaseImpl(authRepo)
     return new SingInPresenterImpl(this.context.root.$router, signUpUseCase);
   }
@@ -173,14 +178,14 @@ class SingInPresenterImpl implements AuthPresenter {
     this._uiModel = {
       title1: "Let's enjoy increasing vocab!!",
       title2: "Please sign in.",
-      email: "",
-      emailVariant: "",
+      email: "test@email.email",
+      emailVariant: "success",
       emailFeedback: "",
-      password: "",
-      passwordVariant: "",
+      password: "Password1234",
+      passwordVariant: "success",
       passwordFeedback: "",
-      buttonEnabled: false,
-      buttonTitle:"Sign in",
+      buttonEnabled: true,
+      buttonTitle: "Sign in",
       isLoading: false
     }
   }
@@ -226,7 +231,8 @@ class SingInPresenterImpl implements AuthPresenter {
   }
 
   toNextPageAfterAuth(): void {
-    this.router.replace("/words").then()
+    this.router.replace("/words").finally(() => {
+    })
   }
 
   private updateButtonDisabled(): void {
