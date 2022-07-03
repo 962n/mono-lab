@@ -1,18 +1,18 @@
 <template>
-  <div class="px-4">
-    <div class="flex flex-row my-4">
+  <div class="p-4 flex flex-row">
+    <div class="flex flex-col top-20 left-0 fixed p-4 h-full border-r border-gray-300">
       <button @click="p.onClickAdd()">
         <AddSVG/>
       </button>
-      <button @click="p.refresh()">
+      <button class="my-4" @click="p.refresh()">
         <RefreshSVG/>
       </button>
     </div>
 
-    <div>
+    <div class="w-full ml-14">
       <ul>
         <li v-for="(item, index) in um.items" :key="index"
-            class="rounded-xl group-hover:border-black border my-4">
+            class="rounded-xl group-hover:border-black border mb-4">
           <button class="w-full flex flex-row items-center justify-between p-4">
             <div>
               <p class="text-lg font-bold text-left">{{ item.title }}</p>
