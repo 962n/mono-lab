@@ -19,7 +19,7 @@ export interface WordListPresenter {
 
   onClickAdd(): void
 
-  onClickDelete(item: WordListItem): void
+  onClickDelete(index: number, item: WordListItem): void
 
   addWord(word: EditWordData): void
 }
@@ -28,6 +28,12 @@ export type WordListUiModel = {
   items: WordListItem[]
   infiniteId: number
   showAddWordModal: boolean
+  confirmModal: {
+    show: boolean
+    title: string,
+    content: string
+    tag: object | null
+  }
 }
 
 export type WordListItem = {
@@ -59,7 +65,13 @@ class WordListPresenterImpl implements WordListPresenter {
     this._uiModel = {
       items: [],
       infiniteId: 0,
-      showAddWordModal: false
+      showAddWordModal: false,
+      confirmModal: {
+        show: false,
+        title: "",
+        content: "",
+        tag: null,
+      }
     }
     this.lastPage = null
   }
@@ -100,12 +112,20 @@ class WordListPresenterImpl implements WordListPresenter {
     this._uiModel.showAddWordModal = true
   }
 
-  onClickDelete(item: WordListItem): void {
+  onClickDelete(index: number, item: WordListItem): void {
+    // this._uiModel.confirmModal.show = true
+    // this._uiModel.confirmModal.title = "Delete Word"
+    // this._uiModel.confirmModal.title = "Delete Word"
+    this._uiModel.confirmModal = {
+      show: true,
+      title: "Delete Word",
+      content: "Are you show??",
+      tag: null,
+    }
+//    this._uiModel.items.splice(0, 1)
   }
 
   addWord(word: EditWordData): void {
-    console.log("addWord")
-    console.log(word)
     const item: WordListItem = {
       title: word.word
     }
