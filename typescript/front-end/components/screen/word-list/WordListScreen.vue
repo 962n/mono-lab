@@ -4,8 +4,11 @@
       <button @click="p.onClickAdd()">
         <AddSVG/>
       </button>
-      <button class="my-4" @click="p.refresh()">
+      <button class="mt-4" @click="p.refresh()">
         <RefreshSVG/>
+      </button>
+      <button class="mt-4">
+        <DeleteSVG/>
       </button>
     </div>
 
