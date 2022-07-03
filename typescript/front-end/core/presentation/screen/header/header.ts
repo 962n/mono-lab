@@ -18,7 +18,7 @@ export interface HeaderPresenter {
 
   toTop(): void
 
-  logout(): void
+  signOut(): void
 
 }
 
@@ -88,12 +88,12 @@ export class HeaderPresenterImpl implements HeaderPresenter {
     this.router.replace("/")
   }
 
-
-  logout(): void {
+  signOut(): void {
     this._uiModel.isLoading = true
     this.signOutUseCase.exec().then(() => {
       this.handleEvent({type: HeaderEventType.SignOutComplete, message: ""})
     }).catch((e: Error) => {
+      console.log(e)
       this.handleEvent({type: HeaderEventType.SignOutFailed, message: e.message})
     }).finally(() => {
       this._uiModel.isLoading = false

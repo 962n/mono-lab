@@ -21,6 +21,8 @@ export interface AuthRepository {
     params: AuthModel
   ): Promise<void>
 
+  fetchAuthFromSession(): Promise<AuthModel | null>
+
   disposeAuth(): Promise<void>
 
 }
