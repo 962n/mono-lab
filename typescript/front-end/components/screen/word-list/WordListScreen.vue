@@ -1,17 +1,18 @@
 <template>
-  <div>
-    <p>WordListScreen</p>
-    <p>{{ um.testTitle }}</p>
-    <button @click="p.refresh()">
-      <RefreshSVG/>
-    </button>
+  <div class="px-4">
+    <div class="flex flex-row my-4">
+      <button @click="p.onClickAdd()">
+        <AddSVG/>
+      </button>
+      <button @click="p.refresh()">
+        <RefreshSVG/>
+      </button>
+    </div>
 
     <div>
-      <ul class="px-4">
-        <li
-          v-for="(item, index) in um.items" :key="index"
-          class="rounded-xl group-hover:border-black border my-4"
-        >
+      <ul>
+        <li v-for="(item, index) in um.items" :key="index"
+          class="rounded-xl group-hover:border-black border my-4">
           <button class="w-full flex flex-row items-center justify-between p-4">
             <div>
               <p class="text-lg font-bold text-left">{{ item.title }}</p>
@@ -26,14 +27,13 @@
     </div>
     <!-- https://crieit.net/posts/Nuxt-document-is-not-defined -->
     <client-only>
-      <infinite-loading
-        :identifier="um.infiniteId"
-        @infinite="infiniteHandler">
-      </infinite-loading>
+      <infinite-loading :identifier="um.infiniteId" @infinite="infiniteHandler"></infinite-loading>
     </client-only>
-    <div>
-      <t-modal v-model="um.showAddWordModal">hello world</t-modal>
-    </div>
+    <t-modal v-model="um.showAddWordModal">
+      <EditWord @on-click-save="p.addWord($event)">
+        <template v-slot:title>Register Word</template>
+      </EditWord>
+    </t-modal>
   </div>
 </template>
 
@@ -44,8 +44,10 @@ import {
 } from '@vue/composition-api'
 import {WordListItem, WordListPresenter} from "~/core/presentation/screen/word-list/word-list";
 import {StateChanger} from 'vue-infinite-loading';
-import DeleteSVG from '~/assets/svg/delete_24.svg';
-import RefreshSVG from '~/assets/svg/refresh_24.svg';
+import DeleteSVG from '~/assets/svg/ic_delete_black_24.svg';
+import RefreshSVG from '~/assets/svg/ic_refresh_black_24.svg';
+import AddSVG from '~/assets/svg/ic_add_black_24.svg';
+import EditWord from "~/components/parts/EditWordArea.vue";
 
 export default defineComponent({
   props: {
@@ -55,8 +57,10 @@ export default defineComponent({
     },
   },
   components: {
+    EditWord,
     DeleteSVG,
-    RefreshSVG
+    RefreshSVG,
+    AddSVG
   },
   setup(props, context) {
     const p: WordListPresenter = props.presenter
@@ -65,7 +69,7 @@ export default defineComponent({
       infiniteHandler(state: StateChanger) {
         p.fetch(state)
       },
-      hoge(index: number,hoge: WordListItem) {
+      hoge(index: number, hoge: WordListItem) {
         p.onClickDelete(hoge)
       }
     }

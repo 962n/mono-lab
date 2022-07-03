@@ -1,7 +1,7 @@
 <template>
   <div>
     <loading :active.sync="um.isLoading" :can-cancel="false" :is-full-page="true"/>
-    <header class="flex flex-row justify-between items-center p-4 shadow-md relative">
+    <header class="flex flex-row justify-between items-center p-4 shadow-md bg-white h-full">
       <h1 class="text-2xl font-mono font-bold">Ankiiiii</h1>
       <nav>
         <ul class="flex flex-row items-center">

@@ -1,8 +1,8 @@
 <template>
   <div class="h-screen">
-    <div v-if="isSignedIn">
-      <HeaderScreen :presenter="headerPresenter"/>
-      <nuxt/>
+    <div class="pt-20" v-if="isSignedIn">
+      <HeaderScreen class="top-0 left-0 h-20 fixed w-full" :presenter="headerPresenter"/>
+      <nuxt />
     </div>
     <div v-if="!isSignedIn">
       <HeaderPublicScreen :presenter="headerPublicPresenter"/>

@@ -5,6 +5,7 @@ import {WordsRepositoryImpl} from "~/core/data/repository-impl/words";
 import {PageModel} from "~/core/domain/model/paging";
 import {WordModel} from "~/core/domain/model/word";
 import {StateChanger} from "vue-infinite-loading";
+import {EditWordData} from "~/components/parts/EditWordArea.vue";
 
 
 export interface WordListPresenter {
@@ -16,11 +17,14 @@ export interface WordListPresenter {
 
   toDetail(item: WordListItem): void
 
+  onClickAdd(): void
+
   onClickDelete(item: WordListItem): void
+
+  addWord(word: EditWordData): void
 }
 
 export type WordListUiModel = {
-  testTitle:string
   items: WordListItem[]
   infiniteId: number
   showAddWordModal: boolean
@@ -53,7 +57,6 @@ class WordListPresenterImpl implements WordListPresenter {
   constructor(getWordsUseCase: GetWordsUseCase) {
     this.getWordsUseCase = getWordsUseCase
     this._uiModel = {
-      testTitle:"",
       items: [],
       infiniteId: 0,
       showAddWordModal: false
@@ -61,8 +64,11 @@ class WordListPresenterImpl implements WordListPresenter {
     this.lastPage = null
   }
 
+  uiModel(): WordListUiModel {
+    return this._uiModel
+  }
+
   refresh(): void {
-    console.log("refresh")
     this._uiModel.items = []
     this._uiModel.infiniteId = this._uiModel.infiniteId + 100
   }
@@ -74,7 +80,6 @@ class WordListPresenterImpl implements WordListPresenter {
       first: 10,
       after: after
     }).then((value => {
-      console.log(value)
       this.handleWords(value.words)
       this.lastPage = value.page
       if (value.page.hasNextPage) {
@@ -91,15 +96,23 @@ class WordListPresenterImpl implements WordListPresenter {
   toDetail(item: WordListItem): void {
   }
 
-  onClickDelete(item: WordListItem): void {
-    this._uiModel.testTitle += "a"
+  onClickAdd(): void {
     this._uiModel.showAddWordModal = true
   }
 
-
-  uiModel(): WordListUiModel {
-    return this._uiModel
+  onClickDelete(item: WordListItem): void {
   }
+
+  addWord(word: EditWordData): void {
+    console.log("addWord")
+    console.log(word)
+    const item: WordListItem = {
+      title: word.word
+    }
+    this._uiModel.items.splice(0, 0, item)
+    this._uiModel.showAddWordModal = false
+  }
+
 
   handleWords(models: WordModel[]) {
     const items = models.map((m) => {
