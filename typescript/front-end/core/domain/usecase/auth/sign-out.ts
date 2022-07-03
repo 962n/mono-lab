@@ -12,10 +12,7 @@ export class SignOutUseCaseImpl implements SignOutUseCase {
   }
 
   async exec(): Promise<void> {
-    try {
-      await this.authRepo.signOut()
-    } catch (e) {
-      throw e
-    }
+    await this.authRepo.signOut()
+    await this.authRepo.disposeAuth()
   }
 }

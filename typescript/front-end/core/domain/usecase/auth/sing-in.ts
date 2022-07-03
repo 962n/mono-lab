@@ -15,7 +15,7 @@ class SignInUseCaseImpl implements SignInUseCase {
   async exec(param: { email: string; password: string }): Promise<void> {
     try {
       const auth = await this.authRepo.singUp(param)
-      await this.authRepo.configureToken(auth)
+      await this.authRepo.configureAuth(auth)
     } catch (e) {
       throw e
     }

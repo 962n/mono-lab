@@ -15,9 +15,12 @@ export interface AuthRepository {
     },
   ): Promise<AuthModel>
 
-  configureToken(
+  signOut(): Promise<void>
+
+  configureAuth(
     params: AuthModel
   ): Promise<void>
 
-  signOut(): Promise<void>
+  disposeAuth(): Promise<void>
+
 }

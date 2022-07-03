@@ -15,7 +15,7 @@ export class AuthRepositoryImpl implements AuthRepository {
     this.cookieStore = cookieStore
   }
 
-  async configureToken(model: AuthModel): Promise<void> {
+  async configureAuth(model: AuthModel): Promise<void> {
     await this.cookieStore.putAuth(model)
     this.authStore.configureAuthModel(model)
   }
@@ -28,12 +28,15 @@ export class AuthRepositoryImpl implements AuthRepository {
     return timeout(2000).then(() => this.dummyAuthModel())
   }
 
+  disposeAuth(): Promise<void> {
+    return Promise.resolve()
+      .then(() => this.authStore.disposeAuthModel());
+  }
+
+
   signOut(): Promise<void> {
     return timeout(2000)
       .then(() => this.cookieStore.deleteAuth())
-      .then(() => {
-        this.authStore.disposeAuthModel()
-      })
   }
 
   private dummyAuthModel(): AuthModel {
