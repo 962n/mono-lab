@@ -43,7 +43,7 @@ import {
   defineComponent,
 } from '@vue/composition-api'
 import {WordListItem, WordListPresenter} from "~/core/presentation/screen/word-list/word-list";
-import InfiniteLoading, {StateChanger} from 'vue-infinite-loading';
+import {StateChanger} from 'vue-infinite-loading';
 import DeleteSVG from '~/assets/svg/delete_24.svg';
 import RefreshSVG from '~/assets/svg/refresh_24.svg';
 
@@ -55,7 +55,6 @@ export default defineComponent({
     },
   },
   components: {
-    InfiniteLoading,
     DeleteSVG,
     RefreshSVG
   },

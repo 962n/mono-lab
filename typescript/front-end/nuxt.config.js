@@ -25,6 +25,7 @@ export default {
   plugins: [
     '@/plugins/composition-api',
     '@/plugins/vue-tailwind',
+    '@/plugins/vue-infinite-loading',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

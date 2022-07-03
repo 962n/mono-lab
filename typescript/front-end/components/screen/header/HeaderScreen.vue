@@ -12,7 +12,7 @@
             <button class="font-bold" @click="p.toWords()">Words</button>
           </li>
           <li class="mx-5">
-            <button class="font-bold" @click="p.logout()">SignOut</button>
+            <button class="font-bold" @click="p.signOut()">SignOut</button>
           </li>
           <li>
             <!-- https://www.vue-tailwind.com/docs/dropdown -->
