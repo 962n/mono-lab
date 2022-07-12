@@ -19,6 +19,7 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@/assets/css/tailwind.css',
+    '@/assets/css/transition.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -26,6 +27,7 @@ export default {
     '@/plugins/composition-api',
     '@/plugins/vue-tailwind',
     '@/plugins/vue-infinite-loading',
+    '@/plugins/vue-tinder',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
