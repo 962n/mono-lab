@@ -4,7 +4,7 @@
       class="w-7/12"
       :presenter="wordListPresenter"
     />
-    <div class="w-5/12 border-l border-gray-300 p-4 h-full">
+    <div class="w-5/12 border-l border-gray-300 p-4 h-full overflow-scroll">
       <t-button @click="method.onClick()">button</t-button>
       <transition name="slide-fade">
         <WordEditScreen
