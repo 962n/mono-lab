@@ -1,6 +1,6 @@
 <template>
-  <div class="p-4 flex flex-row">
-    <div class="flex flex-col top-20 left-0 fixed p-4 h-full border-r border-gray-300">
+  <div class="flex flex-row">
+    <div class="flex flex-col p-4 h-auto border-r border-gray-300 overflow-scroll">
       <button @click="p.onClickAdd()">
         <AddSVG/>
       </button>
@@ -12,8 +12,8 @@
       </button>
     </div>
 
-    <div class="w-full ml-14">
-      <ul>
+    <div class="w-full overflow-scroll h-auto">
+      <ul class="m-4">
         <li v-for="(item, index) in um.items" :key="index"
             class="rounded-xl group-hover:border-black border mb-4">
           <button class="w-full flex flex-row items-center justify-between p-4">

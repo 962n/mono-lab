@@ -1,10 +1,11 @@
 <template>
-  <div class="flex flex-row h-full">
-    <WordListScreen class="w-7/12"
+  <div class="flex flex-row h-full w-full fixed pb-20 ">
+    <WordListScreen
+      class="w-7/12"
       :presenter="wordListPresenter"
     />
     <div class="w-5/12 border-l border-gray-300">
-      <div class="fixed p-4 h-full">
+      <div class="p-4 h-full">
         <p>Sorry...... This screen is under construction.</p>
       </div>
     </div>
